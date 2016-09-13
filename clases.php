@@ -46,6 +46,23 @@ class Estacionamiento
 
 	}
 
+	public static function LeerTickets() {
+		$tickets = array();
+		$miarchivo = fopen("tickets.txt", "r");	//http://www.w3schools.com/php/func_filesystem_fopen.asp
+
+		while (!(feof($miarchivo))) {
+			$renglon = rtrim(fgets($miarchivo));
+			$renglonArray = explode(" - ", $renglon);
+
+			if ($renglonArray[0] != "") {
+				$tickets[] = $renglonArray;
+			}
+		}
+		fclose($miarchivo);
+		return $tickets;
+
+	}
+
 	public static function Sacar($patente) {
 		$estacionados = Estacionamiento::Leer();
 		$hallado = false;
@@ -111,8 +128,63 @@ ccccccc - 2016-09-12 22:01:28
 		fclose($miarchivo);
 	}
 
+	public static function ImprimirTablas() {
+
+		$estacionados = Estacionamiento::Leer();
+		$cobrados = Estacionamiento::LeerTickets(10);
+
+		echo '<div style="padding:10px;">';
+		
+		echo '<div style="float:left;">';		// Tabla de estacionados
+		echo MiHTML::Titulo_2("Vehículos estacionados:");
+		echo '<table>';
+		echo MiHTML::Fila(MiHTML::Celda("Patente") . MiHTML::Celda("Entrada"));
+		foreach ($estacionados as $auto) {
+			echo MiHTML::Fila(MiHTML::Celda($auto[0]) . MiHTML::Celda($auto[1]));
+		}
+		echo '</table></div>';						// Tabla de estacionados
+
+		echo '<div style="float:right;">';		// Tabla de tickets
+		echo MiHTML::Titulo_2("Vehículos ya cobrados:");
+		echo '<table>';
+		echo MiHTML::Fila(MiHTML::Celda("Patente y precio") . MiHTML::Celda("Entrada y salida"));
+		foreach ($cobrados as $ticket) {
+			echo MiHTML::Fila(MiHTML::Celda($ticket[0]) . MiHTML::Celda($ticket[1]));
+			echo MiHTML::Fila(MiHTML::Celda($ticket[3]) . MiHTML::Celda($ticket[2]));
+
+		}
+		echo '</table></div>';							// Tabla de tickets
+
+		echo "</div>";
 
 
+	}
+
+}
+
+/**
+* 
+*/
+class MiHTML
+{
+	
+	function __construct()
+	{
+		# code...
+	}
+
+	// Devuelve el parámetro envuelto en tags td
+	public static function Celda($contenido) {
+		return "<td>$contenido</td>";
+	}
+	// Devuelve el parámetro envuelto en tags tr
+	public static function Fila($contenido) {
+		return "<tr>$contenido</tr>";
+	}
+	// Devuelve el parámetro envuelto en tags h2
+	public static function Titulo_2($contenido) {
+		return "<h2>$contenido</h2>";
+	}
 
 }
 ?>
