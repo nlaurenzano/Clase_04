@@ -1,21 +1,51 @@
 <html>
 <head>
-	<title>Clase 4</title>
-	<link rel="stylesheet" href="estilo.css">
+	<meta charset="UTF-8">
+	<title>Estacionamiento</title>    
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>    
+	<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+	<link rel="stylesheet" href="css/style.css">
 	<?php include_once "clases.php";?>
 </head>
+
 <body>
+	<div class="pen-title">
+	  <h1>Estacionamiento</h1>
+	</div>
 
-	<!-- <form style="background:<?php echo $_GET['color']; ?>" action="nexo.php" method="post"> -->
-	<form action="nexo.php" method="post" id="FormIngreso">
+	<div class="container" style="max-width:90%;padding:10px;">
+		<div class="container" style="float:left">
+			<div class="card"></div>
+			<div class="card">
+				<h1 class="title">Ingreso de datos</h1>
+				<form action="nexo.php" method="post" id="FormIngreso">
+					<div class="input-container">
+						<input type="text" name="patente" id="patente" required="required" />
+						<label for="patente">Patente</label>
+						<div class="bar"></div>
+					</div>
+					<div class="button-container">
+						<button type="submit" value="Estacionar" name="accion"><span>Estacionar</span></button>
+						<button type="submit" value="Salir" name="accion"><span>Salir</span></button>
+					</div>
+				</form>
+			</div>
+		</div>
 
-			<label for="patente">Patente: </label>
-			<input type="text" name="patente" />
-			<input type="submit" value="Estacionar" class="MiBotonUTNMenuInicio" name="accion" />
-			<input type="submit" value="Salir" class="MiBotonUTNMenuInicio" name="accion" />
+		<div class="container" style="float:right;max-width:700px;">
+			<div class="card"></div>
+			<div class="card">
+				<h1 class="title">Tablas</h1>
+				<?php Estacionamiento::ImprimirTablas()?>
+				
+			</div>
+		</div>
+	</div>
 
-	</form>
-			<?php Estacionamiento::ImprimirTablas()?>
+
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src="js/index.js"></script>
 
 </body>
 </html>
