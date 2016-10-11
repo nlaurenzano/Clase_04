@@ -19,11 +19,15 @@
 			<div class="card"></div>
 			<div class="card">
 				<h1 class="title">Ingreso de datos</h1>
-				<form action="nexo.php" method="post" id="FormIngreso">
+				<form action="nexo.php" method="post" id="FormIngreso" enctype="multipart/form-data">
 					<div class="input-container">
 						<input type="text" name="patente" id="patente" required="required" />
 						<label for="patente">Patente</label>
 						<div class="bar"></div>
+					</div>
+					<div class="button-container">
+						<input type="file" name="foto" />
+						<br /><br />
 					</div>
 					<div class="button-container">
 						<button type="submit" value="Estacionar" name="accion"><span>Estacionar</span></button>
